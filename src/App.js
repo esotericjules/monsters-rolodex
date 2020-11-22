@@ -2,8 +2,19 @@ import React from 'react';
 import './App.css';
 import {CardList} from "./components/card-list/card-list.component";
 import {SearchBox} from "./components/search-box/search-box.component";
+import { getBuildDate } from "./utils/utils";
+import withClearCache from "./withClearCache";
+import packageJson from "../package.json";
 
-class App extends React.Component {
+
+const ClearCacheComponent = withClearCache(MainApp);
+
+
+function App() {
+  return <ClearCacheComponent />;
+}
+
+class MainApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +42,7 @@ class App extends React.Component {
     return (
         <div className="App">
           <h1>Monsters Rolodex</h1>
+          <p>Build date: {getBuildDate(packageJson.buildDate)}</p>
           <SearchBox
               placeholder={'search monsters'}
               handleChange={this.handleChange}
